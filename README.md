@@ -30,3 +30,6 @@ python manage.py runserver 8080
 then right click on the link at the bottom of your terminal.
 
 Based on the SQL database that has been saved you can see other users posts and activity. Feel free to follow me in there ;)
+
+## The future of this project
+Unfortunately this project has no further use than the base case of learning and practicing new technologies. This project taught me the fundamentals of backend system, how to pull data using the Django framework API, data modeling with SQL, CRUD applications with SQL, and the fundamentals of SQL. This was the first of many small projects I have created over the years and it has taught me a lot.
