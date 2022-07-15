@@ -35,4 +35,4 @@ Based on the SQL database that has been saved you can see other users posts and 
 Unfortunately this project has no further use than the base case of learning and practicing new technologies. This project taught me the fundamentals of backend system, how to pull data using the Django framework API, data modeling with SQL, CRUD applications with SQL, and the fundamentals of SQL. This was the first of many small projects I have created over the years and it has taught me a lot.
 
 ### NOTE
-I was the only collaborator for this project
+I was the only collaborator for this project. The project can be viewed on Harbards CS50WEB website.
