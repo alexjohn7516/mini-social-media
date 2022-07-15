@@ -1,0 +1,75 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div id="post-form-container">
+        <form id="post-form" action="{% url 'new_post' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group blue-border-focus">
+                <h2><label for="exampleFormControlTextarea4">New Post</label></h2>
+                <textarea maxlength="256" id="exampleFormControlTextarea4" class="form-control form-post-content" name="content" placeholder="What's happening?"></textarea>
+            </div>
+            {% if user.is_authenticated %}
+            <input class="btn btn-primary" value="Post" type="submit" id="post-submit">
+            {% endif %}
+        </form>
+    </div>
+
+    <div id="posts-container">
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post-container">
+                    <div class="username-container">
+                        <span class="post-username">
+                            <a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a>
+                        </span>
+                    </div>
+                    {% if post.user == user %}
+                    <div class="edit-content" >
+                        <a href="#" class="edit-link" data-post_id={{post.post_id}} data-post_creator={{post.user.username}} onclick="edit_post(event)">Edit</a>
+                    </div>
+                    {% endif %}
+                    <div class="post-content" data-post_id={{post.post_id}}>
+                        <span>{{post.content}}</span>
+                    </div>
+                    <div class="timestamp">
+                        <span>{{post.timestamp}}</span>
+                    </div>
+                    <div id="hearts" data-post_likes={{post.likes}} data-post_id={{post.post_id}} >
+                        {% if user.is_authenticated %}
+                            {% if user in post.liked.all %}
+                            <button class="btn btn-primary btn-small likes liked" onclick="like_post(event)">
+                            {% else %}
+                            <button class="btn btn-primary btn-small likes unliked" onclick="like_post(event)">
+                            {% endif %}
+                                {{post.likes}} Likes</button>
+                        {% else %}
+                            <button class="btn btn-primary btn-small likes liked" disabled>{{post.likes}} Likes</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+        {% else %}
+            <span class="empty">There are no posts yet</span>
+        {% endif %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}
+
